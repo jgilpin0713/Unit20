@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from flask_debugtoolbar import DebugToolbarExtension
+from forex_python import converter
 from forex_python.converter import CurrencyCodes
 
 #from forex_python.converter import CurrencyRates

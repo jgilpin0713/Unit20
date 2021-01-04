@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from flask_debugtoolbar import DebugToolbarExtension
 from forex_python import converter
 from forex_python.converter import CurrencyCodes
+from currency import Currency
 
 #from forex_python.converter import CurrencyRates
 #>>> c = CurrencyRates(force_decimal=True)
@@ -13,19 +14,26 @@ from forex_python.converter import CurrencyCodes
 app = Flask(__name__)
 app.config["SECRET KEY"] = "IDIDIT"
 
+
+rates = Currency()
+
 @app.route("/")
 def formpage():
     """Show homepage with conversion form"""
     return render_template("base.html")
 
-@app.route("/results")
-def results():
-    """Displays results if correct information entered by user"""
-    #takes the input values (CF, CT, A) and provides answer using forex_python
-    return render_template("results.html", results = results) #with currency symbol and decimal place
 
-@app.route("/results", methods=["POST"])
+@app.route("/", methods=["POST"])
 def collecting_data():
     """Collects data from form"""
-    convert = request.form["conversions"]
-    return convert
+    convertfrom = request.form["from"]
+    convertto = request.form["to"]
+    amount = request.form["amount"]
+    valid = rates.check_valid_currency(convertfrom)
+    valid2 = rates.check_valid_currency(convertto)
+    symbol = rates.find_symbol(valid2)
+    results = rates.convert(valid, valid2, amount)
+
+    return render_template("results.html", symbol = symbol, results = results)
+    
+

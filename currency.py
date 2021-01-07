@@ -23,9 +23,9 @@ class Currency():
         currency_exists = abb.upper() in self.currency
 
         if currency_exists:
-            return abb.upper()
+            return True
         else:
-            return "Invalid Currency"
+            return False
 
     def find_symbol(self, cf):
         """ Finds the symbol of the converting to variable"""

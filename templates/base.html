@@ -3,19 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel = "stylesheet" href ="app.css">
+    <link rel = "stylesheet" href ="/static/app.css">
     <title>Conversions</title>
 </head>
 <body>
-    <h1>Currency Converter</h1>
+    <h1>Currency Converting</h1>
+    
     {% block content %}
+    
+    <div>
+        {% for msg in get_flashed_messages() %}
+          <p> {{msg}} </p> 
+        {% endfor %}
+     </div>
+    
     <form method="POST" class="conversions">
         Converting from :
-        <input type="text" name = "from">
+        <input type="text" name = "from" maxlength ="3" required>
         Converting to :
-        <input type="text" name = "to">
+        <input type="text" name = "to" maxlength ="3" required>
         Amount :
-        <input type="text" name = "amount">
+        <input type="text" name = "amount" required>
         
         <button>Convert</button>
       </form>

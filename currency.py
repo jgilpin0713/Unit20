@@ -2,8 +2,7 @@ from flask import Flask, render_template, request
 from flask_debugtoolbar import DebugToolbarExtension
 from forex_python import converter
 from forex_python.converter import CurrencyCodes, CurrencyRates, Decimal
-import tkinter
-from tkinter import messagebox
+import math
 
 class Currency():
 
@@ -37,4 +36,4 @@ class Currency():
     def convert(self, cf, ct, amt):
         c = CurrencyRates(force_decimal=True)
         result = c.convert(cf, ct, Decimal(amt))
-        return result
+        return round(result, 2)
